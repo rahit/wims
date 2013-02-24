@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">WIMS</string>
+    <string name="action_settings">Add New</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="search_button_text">Search</string>
+
+</resources>
