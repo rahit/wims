@@ -5,5 +5,9 @@
     <string name="action_settings">Add New</string>
     <string name="hello_world">Hello world!</string>
     <string name="search_button_text">Search</string>
+    <string name="title_activity_add_item">Add Item</string>
+    <string name="add_button_text">Add</string>
+    <string name="iteam_name">Iteam Name</string>
+    <string name="item_location">Item Location</string>
 
 </resources>

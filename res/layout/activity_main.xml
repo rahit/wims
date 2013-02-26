@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:ems="10" />
+        android:ems="10"
+        android:hint="@string/iteam_name" />
 
     <Button
         android:id="@+id/search_button"
@@ -23,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/search_box"
         android:layout_alignParentRight="true"
-        android:text="search_button_text" />
+        android:text="@string/search_button_text" />
 
     <ListView
         android:id="@+id/search_result"
@@ -32,5 +33,13 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/search_box" >
     </ListView>
+
+    <TextView
+        android:id="@+id/test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="" />
 
 </RelativeLayout>
