@@ -20,6 +20,7 @@ public class WimsDatabaseOpenHelper extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "wims";
 	private static final int DATABASE_VERSION = 1;
 	private static final String TABLE_NAME = "item_location";
+	private static final String COLUMN_ID = "_id";
 	
 	public WimsDatabaseOpenHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -28,7 +29,7 @@ public class WimsDatabaseOpenHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String sql = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (id INTEGER PRIMARY KEY NOT NULL, item VARCHAR(200), location VARCHAR(200), created DATETIME, modified DATETIME ) ";
+		String sql = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ( _id INTEGER PRIMARY KEY NOT NULL, item VARCHAR(200), location VARCHAR(200), created DATETIME, modified DATETIME ) ";
 		db.execSQL(sql);
 	}
 

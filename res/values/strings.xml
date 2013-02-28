@@ -9,5 +9,10 @@
     <string name="add_button_text">Add</string>
     <string name="iteam_name">Iteam Name</string>
     <string name="item_location">Item Location</string>
+    <string name="title_activity_edit_item">Edit Item</string>
+    <string name="update_button_text">Update</string>
+    <string name="delete_button_text">Delete this Item</string>
+    <string name="search_box_text">Filter Items ...</string>
+    <string name="action_help">Help</string>
 
 </resources>

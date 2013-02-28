@@ -2,8 +2,15 @@
 
     <item
         android:id="@+id/action_settings"
+        android:icon="@android:drawable/btn_plus"
         android:orderInCategory="100"
-        android:showAsAction="never"
+        android:showAsAction="withText"
         android:title="@string/action_settings"/>
 
+    <item
+        android:id="@+id/help"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_help"/>
+    
 </menu>

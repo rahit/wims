@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AddItemActivity extends Activity {
 
@@ -42,9 +43,8 @@ public class AddItemActivity extends Activity {
 				vals.put("modified", cur_date);
 				
 				db.insert("item_location", null, vals);
-				
-				TextView add_msg = (TextView)findViewById(R.id.add_msg);
-				add_msg.setText("Item Added to Database");
+				Toast t = Toast.makeText(getApplicationContext(), item.getText().toString()+" successfully added",Toast.LENGTH_LONG );
+				t.show();
 				finish();
 			}
 		});
