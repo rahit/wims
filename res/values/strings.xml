@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">WIMS</string>
-    <string name="action_settings">Add New</string>
+    <string name="action_add">Add New</string>
     <string name="hello_world">Hello world!</string>
     <string name="search_button_text">Search</string>
     <string name="title_activity_add_item">Add Item</string>
@@ -14,5 +14,8 @@
     <string name="delete_button_text">Delete this Item</string>
     <string name="search_box_text">Filter Items ...</string>
     <string name="action_help">Help</string>
+    <string name="modified_on">Last Modified</string>
+    <string name="delete_text">DELETE</string>
+    <string name="cancel">Cancel</string>
 
 </resources>

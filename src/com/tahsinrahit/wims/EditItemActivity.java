@@ -4,9 +4,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.os.Bundle;
+import android.os.Message;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.ContentValues;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +24,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class EditItemActivity extends Activity {
+	private static WimsDatabaseOpenHelper db_helper;
+	private static SQLiteDatabase db;
+	private static String item_id;
 	private static EditText item;
 	private static EditText location;
 	private Button add;
@@ -35,6 +45,14 @@ public class EditItemActivity extends Activity {
 		location = (EditText)findViewById(R.id.location_edit);
 		item.setText(cur_item);
 		location.setText(cur_location);
+
+		db_helper = new WimsDatabaseOpenHelper(EditItemActivity.this);
+		db = db_helper.getWritableDatabase();
+		
+		Cursor ca = db.query(true, "item_location", new String[]{"_id"}, "item=? AND location=?", new String[]{cur_item,cur_location}, null, null, null, "1");
+		ca.moveToFirst();
+		item_id = ca.getString(0);
+		
 		
 		add.setOnClickListener(new View.OnClickListener() {
 			
@@ -44,15 +62,12 @@ public class EditItemActivity extends Activity {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 				String cur_date = sdf.format(new Date());
 				
-				WimsDatabaseOpenHelper db_helper = new WimsDatabaseOpenHelper(EditItemActivity.this);
-				SQLiteDatabase db = db_helper.getWritableDatabase();
 				//Key-Value pair
 				ContentValues vals = new ContentValues();
 				vals.put("item",item.getText().toString());
 				vals.put("location", location.getText().toString());
-				vals.put("created", cur_date);
 				vals.put("modified", cur_date);
-				db.update("item_location", vals, "item=? AND location=?", new String[]{cur_item,cur_location});
+				db.update("item_location", vals, "_id=?", new String[]{item_id});
 				Toast t = Toast.makeText(getApplicationContext(), item.getText().toString()+" successfully updated",Toast.LENGTH_LONG );
 				t.show();
 				finish();
@@ -64,12 +79,8 @@ public class EditItemActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				WimsDatabaseOpenHelper db_helper = new WimsDatabaseOpenHelper(EditItemActivity.this);
-				SQLiteDatabase db = db_helper.getWritableDatabase();
-				db.delete("item_location", "item=? AND location=?", new String[]{cur_item,cur_location});
-				Toast t = Toast.makeText(getApplicationContext(), "Item successfully deleted",Toast.LENGTH_LONG );
-				t.show();
-				finish();
+				
+				generate_dialoge();
 			}
 		});
 		
@@ -81,13 +92,38 @@ public class EditItemActivity extends Activity {
 		getMenuInflater().inflate(R.menu.edit_item, menu);
 		return true;
 	}
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    
+    private void generate_dialoge() {
+    	AlertDialog.Builder delete_alert = new AlertDialog.Builder(this);
+    	OnClickListener yes = new OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				delete_item();
+			}
+		};
+		OnClickListener no = new OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				
+			}
+		};    	
     	
-    	Intent add_item_intent = new Intent(this, AddItemActivity.class);
-    	startActivity(add_item_intent);
-    	
-    	return super.onOptionsItemSelected(item);
-    }
+    	delete_alert.setMessage("Delete " + item.getText().toString() + " ?");
+    	delete_alert.setPositiveButton(R.string.delete_text, yes);
+    	delete_alert.setNegativeButton(R.string.cancel, no);
+    	delete_alert.show();
+	}
+    
+    
+    private void delete_item() {
+		db.delete("item_location", "_id=?", new String[]{item_id});
+		Toast t = Toast.makeText(getApplicationContext(), "Item successfully deleted",Toast.LENGTH_LONG );
+		t.show();
+		finish();
+	}
+    
+    
 }
